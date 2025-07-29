@@ -5,7 +5,7 @@
 
 
 
-  // Define your markers: [y, x] in image pixel coordinates
+  // Define cylinder positions: [y up, x right] in image pixel coordinates
   const markers = [
     { coords: [260, 90], label: "Cylinder 1", url: "https://docs.google.com/spreadsheets/d/1SQpkDigzWq5NQIL81HTc2j4FTl3_U68VYzU579f_2BI/edit?gid=0,usp=sharing" },
     { coords: [160, 160], label: "Cylinder 2", url: "https://docs.google.com/spreadsheets/d/1SQpkDigzWq5NQIL81HTc2j4FTl3_U68VYzU579f_2BI/edit?gid=1117898194,usp=sharing" },
@@ -13,19 +13,33 @@
   ];
 
 
+  // Image URL
+  const imageURL = 'inglis-ground-floor.png';
+
+  // Image dimensions in pixels
+  const imageWidth = 622;
+  const imageHeight = 544;
+
+
 
 
 
 </script>
 <head>
+
+
   <title>Gas Cylinder Map</title>
+
+
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
   <style>
+
+
+
+/* VISUAL STYLE, LIKE COLOUR, FONT, SIZE ETC. */
     body, html {
       margin: 0;
       padding: 0;
@@ -37,7 +51,6 @@
       height: 100vh;
     }
 
-    /* Style for label container */
     .label-icon {
       pointer-events: auto;
       text-align: center;
@@ -66,20 +79,17 @@
       display: block;
       margin: 0 auto;
     }
+
+
+
+
   </style>
 </head>
 <body>
-
 <div id="map"></div>
-
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
 <script>
-  // Image dimensions in pixels
-  const imageWidth = 622;
-  const imageHeight = 544;
-
   // Create the map with custom CRS (Coordinate Reference System)
   const map = L.map('map', {
     crs: L.CRS.Simple,
@@ -90,12 +100,10 @@
 
   // Define image bounds
   const bounds = [[0, 0], [imageHeight, imageWidth]];
-
-  // Add image overlay
-  L.imageOverlay('inglis-ground-floor.png', bounds).addTo(map);
-
   // Fit the map to the image bounds
   map.fitBounds(bounds);
+  // Add image overlay
+  L.imageOverlay(imageURL, bounds).addTo(map);
 
 
   // Add styled clickable labels with triangle pointers
